@@ -22,7 +22,7 @@ TFENV_INIT
 node[:tfenv][:versions].each do |version|
   execute "tfenv install #{version}" do
     command "#{tfenv_init} tfenv install #{version}"
-    not_if  "#{tfenv_init} tfenv versions | grep #{version}"
+    not_if  "#{tfenv_init} tfenv list | grep #{version}"
     user node[:tfenv][:user] if node[:tfenv][:user]
   end
 end
