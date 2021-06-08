@@ -1,4 +1,6 @@
-package 'git'
+# frozen_string_literal: true
+
+package "git"
 
 scheme = node[:tfenv][:scheme]
 tfenv_root = node[:tfenv][:tfenv_root]
@@ -8,14 +10,14 @@ git tfenv_root do
   user node[:tfenv][:user] if node[:tfenv][:user]
 end
 
-directory File.join(tfenv_root, 'plugins') do
+directory File.join(tfenv_root, "plugins") do
   user node[:tfenv][:user] if node[:tfenv][:user]
 end
 
-tfenv_init = <<-EOS
+tfenv_init = <<-TFENV_INIT
   export TFENV_ROOT=#{tfenv_root}
   export PATH="#{tfenv_root}/bin:${PATH}"
-EOS
+TFENV_INIT
 
 node[:tfenv][:versions].each do |version|
   execute "tfenv install #{version}" do
